@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: 'celery_broker'
+    environment:
+      - RABBITMQ_DEFAULT_USER=celery
+      - RABBITMQ_DEFAULT_PASS=azerty123
+    volumes:
+      - type: volume
+        source: broker_data
+        target: /var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+
+  redis:
+    image: redis
+    hostname: celery_backend
+    volumes:
+      - type: volume
+        source: backend_data
+        target: /data
+
+  celery:
+    image: celery_poc
+    depends_on:
+      - rabbitmq
+      - redis
+    environment:
+      - REDIS_URL=redis
+      - RABBITMQ_URL=rabbitmq
+      - CELERY_USER=celery
+      - CELERY_PASSWORD=azerty123
+
+volumes:
+  broker_data:
+  backend_data:
+  
