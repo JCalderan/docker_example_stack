@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -21,8 +21,8 @@ services:
         source: backend_data
         target: /data
 
-  celery:
-    image: celery_poc
+  worker:
+    build: ./app/
     depends_on:
       - rabbitmq
       - redis

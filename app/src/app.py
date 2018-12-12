@@ -2,11 +2,11 @@ from celery import Celery
 import time
 import os
 
-redis_url=os.environ.get('REDIS_URL', 'redis')
-rabbitmq_url=os.environ.get('RABBITMQ_URL', 'rabbitmq')
-rabbitmq_port=os.environ.get('RABBITMQ_PORT', 5672)
-celery_user=os.environ.get('CELERY_USER', 'celery')
-celery_password=os.environ.get('CELERY_PASSWORD', 'azerty123')
+redis_url = os.environ.get('REDIS_URL', 'redis')
+rabbitmq_url = os.environ.get('RABBITMQ_URL', 'rabbitmq')
+rabbitmq_port = os.environ.get('RABBITMQ_PORT', 5672)
+celery_user = os.environ.get('CELERY_USER', 'celery')
+celery_password = os.environ.get('CELERY_PASSWORD', 'azerty123')
 
 app = Celery(
     'tasks', 
