@@ -23,14 +23,12 @@ services:
 
   worker:
     build: ./app/
+    image: celery_app
     depends_on:
       - rabbitmq
       - redis
-    environment:
-      - REDIS_URL=redis
-      - RABBITMQ_URL=rabbitmq
-      - CELERY_USER=celery
-      - CELERY_PASSWORD=azerty123
+    env_file:
+      - celery.env
 
 volumes:
   broker_data:

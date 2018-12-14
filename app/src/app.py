@@ -1,6 +1,7 @@
 from celery import Celery
 import time
 import os
+import random
 
 redis_url = os.environ.get('REDIS_URL', 'redis')
 rabbitmq_url = os.environ.get('RABBITMQ_URL', 'rabbitmq')
@@ -20,9 +21,11 @@ app = Celery(
 )
 
 @app.task
-def devide(x, y):
+def divide(x, y):
     return x / y
 
 @app.task(ignore_result=True)
 def compute(seconds):
+    print("computing something for {} seconds".format(seconds))
     time.sleep(seconds)
+    return random.uniform(0, seconds)
